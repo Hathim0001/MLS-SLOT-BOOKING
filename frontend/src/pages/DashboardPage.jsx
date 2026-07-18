@@ -8,7 +8,9 @@ function formatHour(hour) {
 }
 
 export default function DashboardPage({ onOpenModal, onRefresh }) {
-  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+  const [date, setDate] = useState(() => {
+    return localStorage.getItem('dashboard_selected_date') || new Date().toLocaleDateString('en-CA');
+  });
   const [availability, setAvailability] = useState({ slots: [] });
   const [loading, setLoading] = useState(false);
 
@@ -34,7 +36,7 @@ export default function DashboardPage({ onOpenModal, onRefresh }) {
       const payerName = bookedSlot ? bookedSlot.payer_name : null;
       return { hour, label: formatHour(hour), isBooked, payerName };
     });
-  }, [availability.slots]);
+  }, [availability]);
 
   return (
     <div className="space-y-6">
@@ -45,7 +47,10 @@ export default function DashboardPage({ onOpenModal, onRefresh }) {
             <h2 className="text-2xl font-semibold text-white">24-hour availability</h2>
           </div>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
-            <input type="date" className="rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-2 text-white w-full sm:w-auto" value={date} onChange={(event) => setDate(event.target.value)} />
+            <input type="date" className="rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-2 text-white w-full sm:w-auto" value={date} onChange={(event) => {
+              setDate(event.target.value);
+              localStorage.setItem('dashboard_selected_date', event.target.value);
+            }} />
             <button onClick={() => onOpenModal(null)} className="rounded-xl bg-gradient-to-r from-cyan-500 to-violet-500 px-4 py-2 font-semibold text-white w-full sm:w-auto text-center">
               + New booking
             </button>
