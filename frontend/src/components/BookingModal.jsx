@@ -82,8 +82,8 @@ export default function BookingModal({ isOpen, booking, onClose, onSaved }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 px-4 py-6 backdrop-blur-sm">
-      <div className="glow-card w-full max-w-2xl p-6">
-        <div className="mb-5 flex items-center justify-between">
+      <div className="glow-card w-full max-w-2xl max-h-[90vh] flex flex-col p-6 overflow-hidden">
+        <div className="mb-5 flex items-center justify-between shrink-0">
           <div>
             <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">Booking editor</p>
             <h2 className="text-xl font-semibold text-white">{booking ? 'Edit booking' : 'Create booking'}</h2>
@@ -93,69 +93,71 @@ export default function BookingModal({ isOpen, booking, onClose, onSaved }) {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-2">
-          <label className="block text-sm text-slate-300">
-            Date
-            <input type="date" className="mt-2 w-full rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-3 text-white" value={form.booking_date} onChange={(event) => updateField('booking_date', event.target.value)} required />
-          </label>
-          <label className="block text-sm text-slate-300">
-            Start time
-            <select className="mt-2 w-full rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-3 text-white" value={form.start_time} onChange={(event) => updateField('start_time', event.target.value)} required>
-              {finalOptions.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="block text-sm text-slate-300">
-            Duration (hours)
-            <select className="mt-2 w-full rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-3 text-white" value={form.duration_hours} onChange={(event) => updateField('duration_hours', event.target.value)}>
-              {Array.from({ length: 48 }, (_, index) => (index + 1) / 2).map((value) => (
-                <option key={value} value={value}>{value % 1 === 0 ? `${value} hr${value > 1 ? 's' : ''}` : `${value} hrs`}</option>
-              ))}
-            </select>
-          </label>
-          <label className="block text-sm text-slate-300">
-            Payment status
-            <select className="mt-2 w-full rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-3 text-white" value={form.payment_status} onChange={(event) => updateField('payment_status', event.target.value)}>
-              <option value="not_paid">Not paid</option>
-              <option value="advance_paid">Advance paid</option>
-            </select>
-          </label>
-          <label className="block text-sm text-slate-300">
-            Payer name
-            <input className="mt-2 w-full rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-3 text-white" value={form.payer_name} onChange={(event) => updateField('payer_name', event.target.value)} required />
-          </label>
-          <label className="block text-sm text-slate-300">
-            Payer phone
-            <input className="mt-2 w-full rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-3 text-white" value={form.payer_number} onChange={(event) => updateField('payer_number', event.target.value)} required />
-          </label>
-
-          {form.payment_status === 'advance_paid' ? (
-            <label className="block text-sm text-slate-300 md:col-span-2">
-              Amount paid
-              <input type="number" min="0" step="0.01" className="mt-2 w-full rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-3 text-white" value={form.amount_paid} onChange={(event) => updateField('amount_paid', event.target.value)} required />
+        <form onSubmit={handleSubmit} className="flex-1 flex flex-col overflow-hidden">
+          <div className="flex-1 overflow-y-auto pr-1 grid gap-4 md:grid-cols-2 mb-4">
+            <label className="block text-sm text-slate-300">
+              Date
+              <input type="date" className="mt-2 w-full rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-3 text-white" value={form.booking_date} onChange={(event) => updateField('booking_date', event.target.value)} required />
             </label>
-          ) : null}
+            <label className="block text-sm text-slate-300">
+              Start time
+              <select className="mt-2 w-full rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-3 text-white" value={form.start_time} onChange={(event) => updateField('start_time', event.target.value)} required>
+                {finalOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="block text-sm text-slate-300">
+              Duration (hours)
+              <select className="mt-2 w-full rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-3 text-white" value={form.duration_hours} onChange={(event) => updateField('duration_hours', event.target.value)}>
+                {Array.from({ length: 48 }, (_, index) => (index + 1) / 2).map((value) => (
+                  <option key={value} value={value}>{value % 1 === 0 ? `${value} hr${value > 1 ? 's' : ''}` : `${value} hrs`}</option>
+                ))}
+              </select>
+            </label>
+            <label className="block text-sm text-slate-300">
+              Payment status
+              <select className="mt-2 w-full rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-3 text-white" value={form.payment_status} onChange={(event) => updateField('payment_status', event.target.value)}>
+                <option value="not_paid">Not paid</option>
+                <option value="advance_paid">Advance paid</option>
+              </select>
+            </label>
+            <label className="block text-sm text-slate-300">
+              Payer name
+              <input className="mt-2 w-full rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-3 text-white" value={form.payer_name} onChange={(event) => updateField('payer_name', event.target.value)} required />
+            </label>
+            <label className="block text-sm text-slate-300">
+              Payer phone
+              <input className="mt-2 w-full rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-3 text-white" value={form.payer_number} onChange={(event) => updateField('payer_number', event.target.value)} required />
+            </label>
 
-          <div className="md:col-span-2">
-            <p className="mb-2 text-sm text-slate-300">Payment method</p>
-            <div className="flex flex-wrap gap-3">
-              {[
-                ['gpay_number', 'GPay Number'],
-                ['gpay_business', 'GPay Business'],
-                ['cash', 'Cash'],
-              ].map(([value, label]) => (
-                <label key={value} className="flex items-center gap-2 rounded-full border border-cyan-400/20 bg-slate-900/70 px-3 py-2 text-sm text-slate-200">
-                  <input type="radio" name="payment_method" value={value} checked={form.payment_method === value} onChange={(event) => updateField('payment_method', event.target.value)} />
-                  {label}
-                </label>
-              ))}
+            {form.payment_status === 'advance_paid' ? (
+              <label className="block text-sm text-slate-300 md:col-span-2">
+                Amount paid
+                <input type="number" min="0" step="0.01" className="mt-2 w-full rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-3 text-white" value={form.amount_paid} onChange={(event) => updateField('amount_paid', event.target.value)} required />
+              </label>
+            ) : null}
+
+            <div className="md:col-span-2">
+              <p className="mb-2 text-sm text-slate-300">Payment method</p>
+              <div className="flex flex-wrap gap-3">
+                {[
+                  ['gpay_number', 'GPay Number'],
+                  ['gpay_business', 'GPay Business'],
+                  ['cash', 'Cash'],
+                ].map(([value, label]) => (
+                  <label key={value} className="flex items-center gap-2 rounded-full border border-cyan-400/20 bg-slate-900/70 px-3 py-2 text-sm text-slate-200">
+                    <input type="radio" name="payment_method" value={value} checked={form.payment_method === value} onChange={(event) => updateField('payment_method', event.target.value)} />
+                    {label}
+                  </label>
+                ))}
+              </div>
             </div>
           </div>
 
-          <div className="md:col-span-2 flex justify-end gap-3">
+          <div className="flex justify-end gap-3 pt-3 border-t border-slate-800 shrink-0">
             <button type="button" onClick={onClose} className="rounded-xl border border-slate-700 px-4 py-2 text-slate-300">Cancel</button>
             <button type="submit" className="rounded-xl bg-gradient-to-r from-cyan-500 to-violet-500 px-4 py-2 font-semibold text-white">
               Save booking

@@ -69,16 +69,16 @@ function App() {
   return (
     <div className="min-h-screen text-slate-100">
       <header className="border-b border-cyan-400/20 bg-slate-950/60 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col sm:flex-row items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8 text-center sm:text-left">
           <div>
             <p className="text-xs uppercase tracking-[0.4em] text-cyan-300">Admin console</p>
             <h1 className="text-xl font-semibold text-white">Slot booking system</h1>
           </div>
           {token ? (
-            <nav className="flex items-center gap-3 text-sm">
-              <Link className="rounded-full border border-cyan-400/20 px-3 py-2 text-slate-200" to="/dashboard">Dashboard</Link>
-              <Link className="rounded-full border border-cyan-400/20 px-3 py-2 text-slate-200" to="/bookings">Bookings</Link>
-              <button onClick={handleLogout} className="rounded-full border border-rose-400/20 px-3 py-2 text-rose-200">Logout</button>
+            <nav className="flex flex-wrap items-center justify-center sm:justify-end gap-2 sm:gap-3 text-xs sm:text-sm">
+              <Link className="rounded-full border border-cyan-400/20 px-3 py-1.5 sm:py-2 text-slate-200" to="/dashboard">Dashboard</Link>
+              <Link className="rounded-full border border-cyan-400/20 px-3 py-1.5 sm:py-2 text-slate-200" to="/bookings">Bookings</Link>
+              <button onClick={handleLogout} className="rounded-full border border-rose-400/20 px-3 py-1.5 sm:py-2 text-rose-200">Logout</button>
             </nav>
           ) : null}
         </div>

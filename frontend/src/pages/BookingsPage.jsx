@@ -49,15 +49,15 @@ export default function BookingsPage({ onEditBooking, onRefresh }) {
   }
 
   return (
-    <div className="glow-card p-6">
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+    <div className="glow-card p-4 sm:p-6">
+      <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">Bookings list</p>
           <h2 className="text-2xl font-semibold text-white">All reservations</h2>
         </div>
-        <div className="flex items-center gap-3">
-          <input className="rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-2 text-white" placeholder="Search by payer" value={search} onChange={(event) => setSearch(event.target.value)} />
-          <select className="rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-2 text-white" value={sortKey} onChange={(event) => setSortKey(event.target.value)}>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+          <input className="rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-2 text-white w-full sm:w-auto" placeholder="Search by payer" value={search} onChange={(event) => setSearch(event.target.value)} />
+          <select className="rounded-xl border border-cyan-400/20 bg-slate-900/70 px-3 py-2 text-white w-full sm:w-auto" value={sortKey} onChange={(event) => setSortKey(event.target.value)}>
             <option value="booking_date">Date</option>
             <option value="payer_name">Payer</option>
             <option value="payment_status">Payment</option>
@@ -65,7 +65,7 @@ export default function BookingsPage({ onEditBooking, onRefresh }) {
         </div>
       </div>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
         <table className="min-w-full border-collapse text-left text-sm">
           <thead className="text-slate-400">
             <tr>
