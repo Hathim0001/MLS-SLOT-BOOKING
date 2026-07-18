@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "prisma": "^6.6.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.6.0"
+  },
+  "scripts": {
+    "build": "npm install --prefix frontend && npm run build --prefix frontend"
+  }
+
+}

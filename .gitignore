@@ -1,0 +1,22 @@
+# Node
+node_modules/
+frontend/dist/
+frontend/.env
+.env
+
+
+# Python
+backend/venv/
+backend/__pycache__/
+backend/**/__pycache__/
+*.pyc
+
+# Database
+*.db
+*.sqlite3
+
+# Editor
+.vscode/
+
+# Vercel
+.vercel/
