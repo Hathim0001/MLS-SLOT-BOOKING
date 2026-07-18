@@ -20,3 +20,4 @@ backend/**/__pycache__/
 
 # Vercel
 .vercel/
+.vercel
